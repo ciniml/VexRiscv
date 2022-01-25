@@ -1,0 +1,6 @@
+set_false_path -from [get_pins {Top_i/VexRiscv_inst/inst/jtagBridge_1/system_rsp_payload_data_reg[*]/C}] -to [get_pins {Top_i/VexRiscv_inst/inst/jtagBridge_1/jtag_readArea_full_shifter_reg[*]/D}]
+set_false_path -from [get_pins Top_i/VexRiscv_inst/inst/jtagBridge_1/flowCCByToggle_1/inputArea_data_fragment_reg*/C] -to [get_pins {Top_i/VexRiscv_inst/inst/jtagBridge_1/flowCCByToggle_1/outputArea_flow_m2sPipe_payload_fragment_reg[*]/D}]
+set_false_path -from [get_pins Top_i/VexRiscv_inst/inst/jtagBridge_1/flowCCByToggle_1/inputArea_target_reg*/C] -to [get_pins Top_i/VexRiscv_inst/inst/jtagBridge_1/flowCCByToggle_1/inputArea_target_buffercc/buffers_0_reg/D]
+set_false_path -from [get_pins Top_i/VexRiscv_inst/inst/jtagBridge_1/flowCCByToggle_1/inputArea_data_last_reg/C] -to [get_pins Top_i/VexRiscv_inst/inst/jtagBridge_1/flowCCByToggle_1/outputArea_flow_m2sPipe_payload_last_reg/D]
+set_false_path -from [get_pins Top_i/VexRiscv_inst/inst/jtagBridge_1/system_rsp_payload_error_reg/C] -to [get_pins {Top_i/VexRiscv_inst/inst/jtagBridge_1/jtag_readArea_full_shifter_reg[1]/D}]
+set_false_path -from [get_pins Top_i/VexRiscv_inst/inst/jtagBridge_1/system_rsp_valid_reg/C] -to [get_pins {Top_i/VexRiscv_inst/inst/jtagBridge_1/jtag_readArea_full_shifter_reg[0]/D}]
