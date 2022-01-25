@@ -177,7 +177,7 @@ object CsrPluginConfig{
     marchid             = 2,
     mimpid              = 3,
     mhartid             = 0,
-    misaExtensionsInit  = 0, //TODO
+    misaExtensionsInit  = (1 << 20) | (1 << 18), // 'S' and 'U' extension
     misaAccess          = CsrAccess.READ_WRITE,
     mtvecAccess         = CsrAccess.READ_WRITE,
     mtvecInit           = mtVecInit,
@@ -194,7 +194,7 @@ object CsrPluginConfig{
     xtvecModeGen        = false,
     noCsrAlu            = false,
     wfiGenAsNop         = false,
-    ebreakGen           = false,
+    ebreakGen           = true,
     userGen             = true,
     supervisorGen       = true,
     sscratchGen         = true,

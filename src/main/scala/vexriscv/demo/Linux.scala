@@ -19,8 +19,11 @@
 package vexriscv.demo
 
 import spinal.core._
+import spinal.lib.{slave}
 import spinal.lib.eda.bench.{AlteraStdTargets, Bench, Rtl, XilinxStdTargets}
-import spinal.lib.eda.icestorm.IcestormStdTargets
+import spinal.lib.com.jtag.Jtag
+import spinal.lib.bus.amba4.axi.Axi4ReadOnly
+import spinal.lib.eda.altera.{ResetEmitterTag}
 import spinal.lib.master
 import vexriscv._
 import vexriscv.ip._
@@ -211,13 +214,7 @@ object LinuxGen {
             portTlbSize = 4
           )
         ),
-
-        //          new MemoryTranslatorPlugin(
-        //            tlbSize = 32,
-        //            virtualRange = _(31 downto 28) === 0xC,
-        //            ioRange      = _(31 downto 28) === 0xF
-        //          ),
-
+        
         new DecoderSimplePlugin(
           catchIllegalInstruction = true
         ),
@@ -249,32 +246,9 @@ object LinuxGen {
           mulUnrollFactor = 32,
           divUnrollFactor = 1
         ),
-        //          new DivPlugin,
-        new CsrPlugin(CsrPluginConfig.linuxMinimal(0x80000020l).copy(ebreakGen = false)),
-        //          new CsrPlugin(//CsrPluginConfig.all2(0x80000020l).copy(ebreakGen = true)/*
-        //             CsrPluginConfig(
-        //            catchIllegalAccess = false,
-        //            mvendorid      = null,
-        //            marchid        = null,
-        //            mimpid         = null,
-        //            mhartid        = null,
-        //            misaExtensionsInit = 0,
-        //            misaAccess     = CsrAccess.READ_ONLY,
-        //            mtvecAccess    = CsrAccess.WRITE_ONLY,
-        //            mtvecInit      = 0x80000020l,
-        //            mepcAccess     = CsrAccess.READ_WRITE,
-        //            mscratchGen    = true,
-        //            mcauseAccess   = CsrAccess.READ_ONLY,
-        //            mbadaddrAccess = CsrAccess.READ_ONLY,
-        //            mcycleAccess   = CsrAccess.NONE,
-        //            minstretAccess = CsrAccess.NONE,
-        //            ecallGen       = true,
-        //            ebreakGen      = true,
-        //            wfiGenAsWait   = false,
-        //            wfiGenAsNop    = true,
-        //            ucycleAccess   = CsrAccess.NONE
-        //          )),
-        new DebugPlugin(ClockDomain.current.clone(reset = Bool().setName("debugReset"))),
+        //new DivPlugin,
+        new CsrPlugin(CsrPluginConfig.linuxFull(0x80000020l).copy(ebreakGen = false)),
+        new DebugPlugin(ClockDomain.current.clone(reset = Bool().setName("debugReset")), 4),  // 4 hardware breakpoints
         new BranchPlugin(
           earlyBranch = false,
           catchAddressMisaligned = true,
@@ -284,7 +258,7 @@ object LinuxGen {
       )
     )
     if(withMmu) config.plugins += new MmuPlugin(
-      ioRange = (x => if(litex) x(31 downto 28) === 0xB || x(31 downto 28) === 0xE || x(31 downto 28) === 0xF else x(31 downto 28) === 0xF)
+      ioRange = (x => x(31 downto 28) === 0x4)  // 0x4000_0000 to 0x4fff_ffff
     ) else {
       config.plugins += new StaticMemoryTranslatorPlugin(
         ioRange      = _(31 downto 28) === 0xF
@@ -321,7 +295,45 @@ object LinuxGen {
       ))
 //      val toplevel = new VexRiscv(configLight)
 //      val toplevel = new VexRiscv(configTest)
-
+        toplevel.rework {
+          var iBus : Axi4ReadOnly = null
+          for (plugin <- toplevel.config.plugins) plugin match {
+            case plugin: IBusSimplePlugin => {
+              plugin.iBus.setAsDirectionLess() //Unset IO properties of iBus
+              iBus = master(plugin.iBus.toAxi4ReadOnly().toFullConfig())
+                .setName("iBusAxi")
+                .addTag(ClockDomainTag(ClockDomain.current)) //Specify a clock domain to the iBus (used by QSysify)
+            }
+            case plugin: IBusCachedPlugin => {
+              plugin.iBus.setAsDirectionLess() //Unset IO properties of iBus
+              iBus = master(plugin.iBus.toAxi4ReadOnly().toFullConfig())
+                .setName("iBusAxi")
+                .addTag(ClockDomainTag(ClockDomain.current)) //Specify a clock domain to the iBus (used by QSysify)
+            }
+            case plugin: DBusSimplePlugin => {
+              plugin.dBus.setAsDirectionLess()
+              master(plugin.dBus.toAxi4Shared().toAxi4().toFullConfig())
+                .setName("dBusAxi")
+                .addTag(ClockDomainTag(ClockDomain.current))
+            }
+            case plugin: DBusCachedPlugin => {
+              plugin.dBus.setAsDirectionLess()
+              master(plugin.dBus.toAxi4Shared().toAxi4().toFullConfig())
+                .setName("dBusAxi")
+                .addTag(ClockDomainTag(ClockDomain.current))
+            }
+            case plugin: DebugPlugin => plugin.debugClockDomain {
+              plugin.io.bus.setAsDirectionLess()
+              val jtag = slave(new Jtag())
+                .setName("jtag")
+              jtag <> plugin.io.bus.fromJtag()
+              plugin.io.resetOut
+                .addTag(ResetEmitterTag(plugin.debugClockDomain))
+                .parent = null //Avoid the io bundle to be interpreted as a QSys conduit
+            }
+            case _ =>
+          }
+        }
       /*toplevel.rework {
         var iBus : AvalonMM = null
         for (plugin <- toplevel.config.plugins) plugin match {
