@@ -1,6 +1,3 @@
-[submodule "src/test/resources/VexRiscvRegressionData"]
-	path = src/test/resources/VexRiscvRegressionData
-	url = ../VexRiscvRegressionData.git
 [submodule "vivado/XilinxBoardStore"]
 	path = vivado/XilinxBoardStore
 	url = https://github.com/Xilinx/XilinxBoardStore.git
