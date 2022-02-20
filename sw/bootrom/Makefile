@@ -8,7 +8,7 @@ LDFLAGS = -Wl,-Tlink.ld -nostartfiles
 
 OBJS := bootrom.o
 
-all: bootrom.bin bootrom.hex bootrom.tcl bootrom.dump
+all: bootrom.bin bootrom.hex bootrom.dump
 
 bootrom.elf: $(OBJS) link.ld
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(OBJS)

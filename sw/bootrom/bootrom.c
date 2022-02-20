@@ -28,7 +28,7 @@ static volatile uint32_t* const REG_UART_DLL = (volatile uint32_t*)(ADDR_REG_UAR
 static volatile uint32_t* const REG_UART_DLM = (volatile uint32_t*)(ADDR_REG_UART_BASE + 0x1004);
 
 
-static const uint32_t CLOCK_HZ = 125000000;
+static const uint32_t CLOCK_HZ = 250000000;
 static const uint32_t UART_BAUD = 115200;
 static const uint16_t UART_DIVISOR = (CLOCK_HZ/(16*UART_BAUD));
 static const uint8_t UART_DIVISOR_L = UART_DIVISOR & 0xff;
