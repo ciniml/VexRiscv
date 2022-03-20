@@ -1,0 +1,4 @@
+pac/CMSIS-SVD.xsd
+pac/src/lib.rs
+*.bin
+*.lst

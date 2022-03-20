@@ -8,7 +8,7 @@ clean:
 
 ip: component.xml
 
-../../VexRiscv.v:
+../../VexRiscv.v: ../../src/main/scala/vexriscv/demo/Linux.scala
 	cd ../..; sbt "runMain vexriscv.demo.LinuxGen"
 
 component.xml xgui: ../../VexRiscv.v package_ip.tcl

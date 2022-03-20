@@ -159,16 +159,16 @@ object LinuxGen {
         //Uncomment the whole IBusCachedPlugin and comment IBusSimplePlugin if you want cached iBus config
         new IBusCachedPlugin(
           resetVector = 0x80000000l,
-          compressedGen = false,
+          compressedGen = true,
           prediction = STATIC,
-          injectorStage = false,
+          injectorStage = true,
           config = InstructionCacheConfig(
             cacheSize = 4096*1,
-            bytePerLine = 32,
+            bytePerLine = 64,
             wayCount = 1,
             addressWidth = 32,
             cpuDataWidth = 32,
-            memDataWidth = 32,
+            memDataWidth = 512,
             catchIllegalAccess = true,
             catchAccessFault = true,
             asyncTagMemory = false,
@@ -196,7 +196,7 @@ object LinuxGen {
           dBusRspSlavePipe = true,
           config = new DataCacheConfig(
             cacheSize         = 4096*1,
-            bytePerLine       = 32,
+            bytePerLine       = 64,
             wayCount          = 1,
             addressWidth      = 32,
             cpuDataWidth      = 32,

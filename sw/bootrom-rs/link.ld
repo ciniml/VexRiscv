@@ -16,17 +16,17 @@ SECTIONS
   } >imem
   .text : { 
       . = ALIGN(4);
-      *(.text) 
+      *(.text .text.*) 
       . = ALIGN(4);
   } >imem
   .rodata : { 
       . = ALIGN(4);
-      *(.rodata) 
+      *(.rodata .rodata.*) 
       . = ALIGN(4);
   } >imem
   .data : {
       . = ALIGN(4);
-      *(.data)
+      *(.data .data.*)
       . = ALIGN(4);
   } >dmem AT>imem
   .bss : { 
@@ -37,4 +37,7 @@ SECTIONS
   PROVIDE(_end = .);
   PROVIDE(end = .);
   PROVIDE(ramend = ORIGIN(dmem) + LENGTH(dmem));
+
+  .eh_frame (INFO) : { KEEP(*(.eh_frame)) }
+  .eh_frame_hdr (INFO) : { *(.eh_frame_hdr) }
 }

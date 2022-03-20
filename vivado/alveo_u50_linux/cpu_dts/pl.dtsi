@@ -14,11 +14,11 @@
 		#address-cells = <1>;
 		#cpus = <1>;
 		#size-cells = <0>;
-		timebase-frequency = <250000000>;
+		timebase-frequency = <300000000>;
 
 		vexriscv_inst: cpu_hart@0 {
 			bus-handle = <&amba_pl>;
-			clock-frequency = <250000000>;
+			clock-frequency = <300000000>;
 			clocks = <&clk_cpu>;
 			compatible = "riscv";
 			riscv,isa = "rv32ima";
@@ -42,7 +42,7 @@
 				interrupt-controller;
 			};
 			// cpu_cycle_timer: cycle_timer {
-			// 	clock-frequency = <250000000>;
+			// 	clock-frequency = <300000000>;
 			// 	compatible = "riscv,cycle-timer";
 			// };
 		};
@@ -52,14 +52,14 @@
 		#size-cells = <0>;
 		clk_cpu: clk_cpu@0 {
 			#clock-cells = <0>;
-			clock-frequency = <250000000>;
+			clock-frequency = <300000000>;
 			clock-output-names = "clk_cpu";
 			compatible = "fixed-clock";
 			reg = <0>;
 		};
 		clk_bus_0: clk_bus_0@1 {
 			#clock-cells = <0>;
-			clock-frequency = <250000000>;
+			clock-frequency = <300000000>;
 			clock-output-names = "clk_bus_0";
 			compatible = "fixed-clock";
 			reg = <1>;
@@ -80,7 +80,7 @@
 		};
 		axi_gpio_led: gpio@40000000 {
 			#gpio-cells = <2>;
-			clock-frequency = <250000000>;
+			clock-frequency = <300000000>;
 			clock-names = "s_axi_aclk";
 			clocks = <&clk_bus_0>;
 			compatible = "xlnx,axi-gpio-2.0", "xlnx,xps-gpio-1.00.a";
@@ -100,7 +100,7 @@
 			xlnx,tri-default-2 = <0xFFFFFFFF>;
 		};
 		axi_uart16550_0: serial@40010000 {
-			clock-frequency = <250000000>;
+			clock-frequency = <300000000>;
 			clocks = <&clk_bus_0>;
 			compatible = "xlnx,xps-uart16550-2.00.a", "ns16550a";
 			current-speed = <115200>;
@@ -114,7 +114,7 @@
 			reg-shift = <2>;
 		};
 		// axi_timer_0: timer@40020000 {
-		// 	clock-frequency = <250000000>;
+		// 	clock-frequency = <300000000>;
 		// 	clocks = <&clk_bus_0>;
 		// 	compatible = "xlnx,xps-timer-1.00.a";
 		// 	interrupt-parent = <&axi_intc_platform>;
@@ -124,7 +124,7 @@
 		// 	xlnx,one-timer-only = <0x0>;
 		// };
 		aclint_mtimer: aclint_mtimer@40020000 {
-			clock-frequency = <250000000>;
+			clock-frequency = <300000000>;
 			clocks = <&clk_bus_0>;
 			compatible = "riscv,aclint-mtimer";
 			interrupts-extended = <&cpu_intc 7>;

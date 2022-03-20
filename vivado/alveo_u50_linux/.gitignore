@@ -7,4 +7,8 @@
 *.jou
 *.log
 *.str
+*.tmp
+kernel
+kernel.tmp
 project
+vitis_kernel

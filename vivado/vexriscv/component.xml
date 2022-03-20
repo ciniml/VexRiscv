@@ -640,7 +640,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>8eff905d</spirit:value>
+            <spirit:value>8d307ffb</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -656,7 +656,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>8eff905d</spirit:value>
+            <spirit:value>8d307ffb</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -968,7 +968,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long">31</spirit:left>
+            <spirit:left spirit:format="long">511</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -1741,7 +1741,7 @@
       <spirit:file>
         <spirit:name>../../VexRiscv.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_8eff905d</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_8d307ffb</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -1802,14 +1802,14 @@
       <xilinx:displayName>VexRiscv</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
       <xilinx:coreRevision>1</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2022-01-25T18:56:57Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2022-03-20T08:45:42Z</xilinx:coreCreationDateTime>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2021.1</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="1273ad1b"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="cccd9f97"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="bb28ad26"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="c862a95b"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="3ec4b131"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="ce39f69d"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="fc310ab9"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>

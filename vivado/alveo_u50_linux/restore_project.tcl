@@ -23,7 +23,4 @@ add_files ./gpio_jtag.v -fileset [get_filesets sources_1]
 # add_files ./user_efuse.v -fileset [get_filesets sources_1]
 
 source ./Top.tcl
-make_wrapper -top -fileset sources_1 -import [get_files project/$project_name.srcs/sources_1/bd/Top/Top.bd]
-
-add_files ./early.xdc -fileset [get_filesets constrs_1]
-add_files ./normal.xdc -fileset [get_filesets constrs_1]
+#make_wrapper -top -fileset sources_1 -import [get_files project/$project_name.srcs/sources_1/bd/Top/Top.bd]
