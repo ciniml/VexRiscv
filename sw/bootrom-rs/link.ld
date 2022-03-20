@@ -25,13 +25,18 @@ SECTIONS
       . = ALIGN(4);
   } >imem
   .data : {
+      PROVIDE(_data_start = .);
+      PROVIDE(_data_rom_start = LOADADDR(.data));
       . = ALIGN(4);
-      *(.data .data.*)
+      *(.sdata .sdata.* .data .data.*)
       . = ALIGN(4);
+      PROVIDE(_data_end = .);
   } >dmem AT>imem
   .bss : { 
-      *(.bss) 
+      PROVIDE(_bss_start = .);
+      *(.sbss .sbss.* .bss .bss.*) 
       . = ALIGN(4);
+      PROVIDE(_bss_end = .);
   } >dmem
   PROVIDE(stack_bottom = .);
   PROVIDE(_end = .);
