@@ -1,3 +1,6 @@
 [submodule "vivado/XilinxBoardStore"]
 	path = vivado/XilinxBoardStore
 	url = https://github.com/Xilinx/XilinxBoardStore.git
+[submodule "vivado/plic"]
+	path = vivado/plic
+	url = https://github.com/ciniml/plic
